@@ -24,13 +24,29 @@
             <p v-else>Out of Stock</p>
             <p v-if="onSale">On Sale</p>
             <ul>
-              <li v-for="detail in details">{{detail}}</li>
+              <li class=" child" v-for="detail in details">{{detail}}</li>
             </ul>
-            <div v-for="variant in variants" :key="variant.id">{{variant.color}}</div>
-            <!-- <ul> -->
-              <!-- <li v-for="(size, index) in sizes" :key="index">{{ size }}</li> -->
-            <!-- </ul> -->
-            <button class="button" @click="addToCart">Add to Cart</button>
+            <div class="parent child color-circle" 
+              v-for="variant in variants" 
+              :key="variant.id" 
+              @mouseover="updateImage(variant.image)"
+              :style="{ backgroundColor: variant.color }">
+            </div>
+            <ul class="parent">
+              <li  class="child" 
+                v-for="(size, index) in sizes" 
+                :key="index">
+                {{ size }}
+              </li>
+            </ul>
+            <button class="button "
+              :class="{disabledButton: !inStock}"
+              :disabled="!inStock"
+              @click="addToCart">
+              Add Item
+            </button>
+
+            <button class="button" @click="removeFromCart">Remove Item</button>
           </div>
         </div>
       </div>
